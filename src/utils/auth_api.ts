@@ -98,3 +98,30 @@ export const updateEmail = async(token: string, new_email: string): Promise<Resp
         }
     }
 }
+
+export const confirmEmailUpdate = async(id: string): Promise<ResponseInterface> => {
+    try {
+        const headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
+        const reqOptions = {
+            url: `/api/v1/user/confirm-email/${id}` ,
+            method: "PUT",
+            headers: headers,
+        }
+
+        let result = await axios.request(reqOptions)
+
+        return {
+            status: result.status,
+            data: result.data
+        }
+
+    } catch (err: any) {
+
+        return {
+            status: err.response.status,
+            data: err.response.data
+        }
+    }
+}

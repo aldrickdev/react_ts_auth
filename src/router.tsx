@@ -4,6 +4,7 @@ import Root from './pages/Root';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Account from './pages/Account';
+import ConfirmEmailUpdate from './pages/ConfirmEmailUpdate';
 
 // TODO: Add an Error Page
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'account',
         element: <Account />
+      },
+      {
+        path: 'update-email/:id',
+        element: <ConfirmEmailUpdate />
       }
     ]
   }
