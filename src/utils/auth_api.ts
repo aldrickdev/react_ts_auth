@@ -66,32 +66,35 @@ export const getUserDetails = async(token: string): Promise<ResponseInterface> =
     }
 }
 
-// export const updateEmail = async(token: string, email: string): Promise<ResponseInterface> => {
-//     try {
-//         const headers = {
-//             "Content-Type": "application/x-www-form-urlencoded",
-//             "Accept": "application/json"
-//         }
-//         const bodyContent = `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`
-//         const reqOptions = {
-//             url: "/api/v1/user/token",
-//             method: "POST",
-//             headers: headers,
-//             data: bodyContent,
-//         }
+export const updateEmail = async(token: string, new_email: string): Promise<ResponseInterface> => {
+    try {
+        const headers = {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+        const bodyContent = {
+            "email": new_email
+        }
+        const reqOptions = {
+            url: "/api/v1/user/update-email",
+            method: "PUT",
+            headers: headers,
+            data: JSON.stringify(bodyContent),
+        }
 
-//         let result = await axios.request(reqOptions)
+        let result = await axios.request(reqOptions)
 
-//         return {
-//             status: result.status,
-//             data: result.data
-//         }
+        return {
+            status: result.status,
+            data: result.data
+        }
 
-//     } catch (err: any) {
+    } catch (err: any) {
 
-//         return {
-//             status: err.response.status,
-//             data: err.response.data
-//         }
-//     }
-// }
+        return {
+            status: err.response.status,
+            data: err.response.data
+        }
+    }
+}

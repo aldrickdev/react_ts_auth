@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
+import Results from '../components/Results';
 import { login } from '../utils/auth_api';
 import { BACKEND_URL } from '../utils/constants';
 import { useLoggedIn } from '../components/context/LoginContext';
@@ -94,20 +95,8 @@ const Login: React.FC = (): JSX.Element => {
                         <h2 className='text-4xl pb-16'>Login</h2>
 
                         {
-                            result ?
-                                result.status === 0 ?
-                                    <section id='results' className='mb-8 bg-slate-300 border-slate-400 p-1 border-4 rounded-md '>
-                                        <p>{result?.text}</p>
-                                    </section> :
-
-                                    result?.status !== 200 ?
-                                        <section id='results' className='mb-8 bg-red-300 p-1 border-4 rounded-md border-red-400'>
-                                            <p>{result?.text}</p>
-                                        </section> :
-
-                                        <section id='results' className='mb-8 bg-green-300 p-1 border-4 rounded-md border-green-400'>
-                                            <p>{result?.text}</p>
-                                        </section>
+                            result?.status !== undefined && result?.text ?
+                                <Results status={result.status} message={result.text}/>
                                 : null
                         }
 
