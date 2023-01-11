@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLoggedIn } from '../components/context/LoginContext';
 import Results from '../components/Results'
-import { getUserDetails } from '../utils/auth_api'
-import { updateEmail } from '../utils/auth_api'
+import { getUserDetails, updateEmail } from '../utils/auth_api'
 
 const Account: React.FC = (): JSX.Element => {
     // State
@@ -24,7 +23,7 @@ const Account: React.FC = (): JSX.Element => {
     const redirect = useNavigate()
 
     React.useEffect(() => {
-        const fetchUderDetails = async () => {
+        const fetchUserDetails = async () => {
             let token = cookies['greymint-login-token']
 
             if (token) {
@@ -49,7 +48,7 @@ const Account: React.FC = (): JSX.Element => {
             }
         }
 
-        fetchUderDetails()
+        fetchUserDetails()
     }, [loggedIn])
 
     const handleUpdateEmail = async () => {
@@ -73,9 +72,39 @@ const Account: React.FC = (): JSX.Element => {
         }, 5000);
     }
 
+    const handleDisable = async () => {
+        console.log("here")
+    }
+
     return (
         <div className='flex-1'>
             <main className='flex flex-col justify-center h-full w-1/2 m-auto'>
+                <section
+                    id="disable-user-modal"
+                    className='flex flex-col text-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-black rounded-md z-10 bg-white w-2/5'
+                >
+                    <h2 className='text-xl'>
+                        Are you sure you would like to disable you account?
+                    </h2>
+
+                    <div>
+                        <button className='border-4'>
+                            Yes, disable my account
+                        </button>
+
+                        <button className='border-4'>
+                            Cancel
+                        </button>
+                    </div>
+
+                </section>
+
+                <section
+                    id="overlay"
+                    className='fixed top-0 left-0 right-0 bottom-0 opacity-0 bg-gray-300 pointer-events-none active:opacity-1'
+                >
+                </section>
+
                 <h2 className="text-4xl text-center pb-16">
                     Hey {username}, below are your account details
                 </h2>
@@ -144,11 +173,14 @@ const Account: React.FC = (): JSX.Element => {
                 <section id="updates" className='flex justify-around'>
                     <button
                         className='text-lg py-2 px-4 border-4 border-black rounded-md hover:bg-slate-500 hover:text-white'
-                        onClick={() => handleUpdateEmail()}
+                        onClick={() => console.log("Update Password")}
                     >
                         Update Password
                     </button>
-                    <button className='text-lg py-2 px-4 border-4 border-black rounded-md hover:bg-slate-500 hover:text-white'>
+                    <button
+                        className='text-lg py-2 px-4 border-4 border-black rounded-md hover:bg-slate-500 hover:text-white'
+                        onClick={() => handleDisable()}
+                    >
                         Disable Account
                     </button>
                 </section>
